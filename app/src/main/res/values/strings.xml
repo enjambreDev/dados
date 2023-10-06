@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dados</string>
+    <string name="d4">dado de cuatro caras</string>
+    <string name="d6">dado de 6 caras</string>
+    <string name="d8">dado de 8 caras</string>
+    <string name="d10">dado de 10 caras</string>
+    <string name="d12">dado de 12 caras</string>
+    <string name="d20">dado de 20 caras</string>
+</resources>
