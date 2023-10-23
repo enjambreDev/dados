@@ -43,10 +43,11 @@ class DadosViewModel: ViewModel() {
 
     /*
    Using this custom function instead of the one provided by the language because there is a subtle
-   bug which makes the sequence exactly the same everytime. IE, if we throw the 6 sides dice 10
-   times in a row, then we exit the app, open it again and trhow again the 6 sides dice 10 times,
-   the results will be exactly the same and in the same order than the last time.
-     */
+   bug which makes the sequence exactly the same everytime. IE, if we use the language function and
+   throw the 6 sides dice 10 times in a row, then we exit the app, open it again and trhow again the
+   6 sides dice 10 times, the results will be exactly the same and in the same order than the last
+   time.
+   */
     private fun randomResult(lados: Int): Int {
         val seed = System.currentTimeMillis()
         val random = Random(seed)

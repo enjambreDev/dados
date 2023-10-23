@@ -1,12 +1,7 @@
 package dev.enjambre.dados.ui.theme
 
-import android.os.Build
-import android.os.CombinedVibration
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.os.VibratorManager
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -36,13 +31,9 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.enjambre.dados.R
 import dev.enjambre.dados.model.Dado
 import kotlinx.coroutines.launch
@@ -105,13 +96,41 @@ fun DadosAppBar() {
         modifier = Modifier.fillMaxWidth()
             .padding(top = dimensionResource(R.dimen.normal_padding))
     ) {
-        Image(painter = painterResource(R.drawable.d4cel), contentDescription = null, modifier = Modifier.size(35.dp))
-        Image(painter = painterResource(R.drawable.d6cel), contentDescription = null, modifier = Modifier.size(35.dp))
-        Image(painter = painterResource(R.drawable.d8cel), contentDescription = null, modifier = Modifier.size(35.dp))
-        Text(text = stringResource(id = R.string.app_name), modifier = Modifier.padding(start = 16.dp, end = 10.dp), style = MaterialTheme.typography.bodyMedium)
-        Image(painter = painterResource(R.drawable.d10cel), contentDescription = null, modifier = Modifier.size(35.dp))
-        Image(painter = painterResource(R.drawable.d12cel), contentDescription = null, modifier = Modifier.size(35.dp))
-        Image(painter = painterResource(R.drawable.d20cel), contentDescription = null, modifier = Modifier.size(35.dp))
+        Image(
+            painter = painterResource(R.drawable.d4cel),
+            contentDescription = null,
+            modifier = Modifier.size(35.dp)
+        )
+        Image(
+            painter = painterResource(R.drawable.d6cel),
+            contentDescription = null,
+            modifier = Modifier.size(35.dp)
+        )
+        Image(
+            painter = painterResource(R.drawable.d8cel),
+            contentDescription = null,
+            modifier = Modifier.size(35.dp)
+        )
+        Text(
+            text = stringResource(id = R.string.app_name),
+            modifier = Modifier.padding(start = 16.dp, end = 10.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Image(
+            painter = painterResource(R.drawable.d10cel),
+            contentDescription = null,
+            modifier = Modifier.size(35.dp)
+        )
+        Image(
+            painter = painterResource(R.drawable.d12cel),
+            contentDescription = null,
+            modifier = Modifier.size(35.dp)
+        )
+        Image(
+            painter = painterResource(R.drawable.d20cel),
+            contentDescription = null,
+            modifier = Modifier.size(35.dp)
+        )
     }
 }
 
@@ -129,83 +148,86 @@ fun DadoUI(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .clickable(interactionSource = interactionSource, indication = null) {
+    Column (horizontalAlignment = Alignment.CenterHorizontally){
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .clickable(interactionSource = interactionSource, indication = null) {
 
-                //Este if evita una nueva tirada antes de que acaben las animaciones de la anterior,
-                // porque el tamaño del drawable aumenta incrementalmente si permitimos varios
-                // toques antes de finalizar las animaciones.
-                if (dadoScale.value == 1.0f) {
-                    dadosViewModel.tirarDado(dadoState.value.lados)
+                    //Este if evita una nueva tirada antes de que acaben las animaciones de la anterior,
+                    // porque el tamaño del drawable aumenta incrementalmente si permitimos varios
+                    // toques antes de finalizar las animaciones.
+                    if (dadoScale.value == 1.0f) {
+                        dadosViewModel.tirarDado(dadoState.value.lados)
 
-                    //Inicio animaciones
-                    scope.launch {
-                        dadoRotation.animateTo(
-                            targetValue = dadoRotation.value.plus(
-                                Random(System.currentTimeMillis())
-                                    .nextFloat()
-                                    .times(360f)
-                                    .plus(360f)
-                            ),
-                            animationSpec = tween(900, easing = LinearOutSlowInEasing)
-                        )
-                    }
-                    scope.launch {
-                        dadoScale.animateTo(
-                            targetValue = dadoScale.value.plus(1f),
-                            animationSpec = tween(150, easing = LinearOutSlowInEasing)
-                        )
-                        dadoScale.animateTo(
-                            targetValue = dadoScale.value.minus(1f),
-                            animationSpec = tween(150, easing = LinearOutSlowInEasing)
-                        )
-                        vibrator.vibrate(
-                            VibrationEffect.createOneShot(
-                                50,
-                                VibrationEffect.DEFAULT_AMPLITUDE
+                        //Inicio animaciones
+                        scope.launch {
+                            dadoRotation.animateTo(
+                                targetValue = dadoRotation.value.plus(
+                                    Random(System.currentTimeMillis())
+                                        .nextFloat()
+                                        .times(360f)
+                                        .plus(360f)
+                                ),
+                                animationSpec = tween(900, easing = LinearOutSlowInEasing)
                             )
-                        )
-                        dadoScale.animateTo(
-                            targetValue = dadoScale.value.plus(0.2f),
-                            animationSpec = tween(50, easing = LinearOutSlowInEasing)
-                        )
-                        dadoScale.animateTo(
-                            targetValue = dadoScale.value.minus(0.2f),
-                            animationSpec = tween(50, easing = LinearOutSlowInEasing)
-                        )
-                        vibrator.vibrate(
-                            VibrationEffect.createOneShot(
-                                50,
-                                VibrationEffect.DEFAULT_AMPLITUDE
+                        }
+                        scope.launch {
+                            dadoScale.animateTo(
+                                targetValue = dadoScale.value.plus(1f),
+                                animationSpec = tween(150, easing = LinearOutSlowInEasing)
                             )
-                        )
-                    }
-                    //fin animaciones
+                            dadoScale.animateTo(
+                                targetValue = dadoScale.value.minus(1f),
+                                animationSpec = tween(150, easing = LinearOutSlowInEasing)
+                            )
+                            vibrator.vibrate(
+                                VibrationEffect.createOneShot(
+                                    50,
+                                    VibrationEffect.DEFAULT_AMPLITUDE
+                                )
+                            )
+                            dadoScale.animateTo(
+                                targetValue = dadoScale.value.plus(0.2f),
+                                animationSpec = tween(50, easing = LinearOutSlowInEasing)
+                            )
+                            dadoScale.animateTo(
+                                targetValue = dadoScale.value.minus(0.2f),
+                                animationSpec = tween(50, easing = LinearOutSlowInEasing)
+                            )
+                            vibrator.vibrate(
+                                VibrationEffect.createOneShot(
+                                    50,
+                                    VibrationEffect.DEFAULT_AMPLITUDE
+                                )
+                            )
+                        }
+                        //fin animaciones
 
+                    }
                 }
-            }
-            .rotate(dadoRotation.value)
-            .scale(dadoScale.value)
-    ) {
-        Image(
-            painter = painterResource(dadoState.value.drawableRes),
-            contentDescription = stringResource(dadoState.value.contentDescription),
-            modifier = modifier.align(Alignment.Center)
-                .padding(dimensionResource(R.dimen.normal_padding))
-        )
-        Text(
-            text = dadoState.value.currentValue.toString(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.displayLarge,
-            textDecoration = if (dadoState.value.currentValue in listOf(
-                    6,
-                    9
-                )
-            ) TextDecoration.Underline else TextDecoration.None,
-            modifier = modifier
-                .align(Alignment.Center)
-        )
+                .rotate(dadoRotation.value)
+                .scale(dadoScale.value)
+        ) {
+            Image(
+                painter = painterResource(dadoState.value.drawableRes),
+                contentDescription = stringResource(dadoState.value.contentDescription),
+                modifier = modifier.align(Alignment.Center)
+                    .padding(dimensionResource(R.dimen.normal_padding))
+            )
+            Text(
+                text = dadoState.value.currentValue.toString(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displayLarge,
+                textDecoration = if (dadoState.value.currentValue in listOf(
+                        6,
+                        9
+                    )
+                ) TextDecoration.Underline else TextDecoration.None,
+                modifier = modifier
+                    .align(Alignment.Center)
+            )
+        }
+        Text(text = dadoState.value.lados.toString(), textAlign = TextAlign.Center, style = MaterialTheme.typography.labelMedium)
     }
 }

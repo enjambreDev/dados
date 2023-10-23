@@ -26,5 +26,9 @@ val Typography = Typography(
     displayLarge = TextStyle(
         fontFamily = FrederikaTheGreat,
         fontSize = 80.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FrederikaTheGreat,
+        fontSize = 18.sp
     )
 )
