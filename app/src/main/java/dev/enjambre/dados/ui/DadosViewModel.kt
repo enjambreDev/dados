@@ -1,4 +1,4 @@
-package dev.enjambre.dados.ui.theme
+package dev.enjambre.dados.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
