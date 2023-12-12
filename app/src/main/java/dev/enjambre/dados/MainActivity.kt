@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import dev.enjambre.dados.ui.navigation.DadosNavHost
 import dev.enjambre.dados.ui.screens.DadosScreen
 import dev.enjambre.dados.ui.theme.DadosTheme
 import dev.enjambre.dados.ui.screens.DadosViewModel
@@ -26,7 +29,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DadosScreen(DadosViewModel(), vibrator)
+                    val dadosViewModel = DadosViewModel()
+                    val navHostController: NavHostController = rememberNavController()
+                    DadosNavHost(
+                        navHostController =navHostController,
+                        dadosViewModel = dadosViewModel,
+                        vibrator = vibrator
+                    )
                 }
             }
         }

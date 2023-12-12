@@ -6,4 +6,25 @@
     <string name="d10">dado de 10 caras</string>
     <string name="d12">dado de 12 caras</string>
     <string name="d20">dado de 20 caras</string>
+    <string name="informacion">Información</string>
+    <string name="privacidad_titulo">Política de privacidad</string>
+    <string name="si_te_gusta">No gano nada con esta aplicación. Si te gusta, considera hacer algo desinteresado por alguien hoy.</string>
+    <string name="privacidad_url">enjambre.dev/dados/politicaprivacidad/politicaprivacidad.html</string>
+    <string name="privacidad_cuerpo">
+        Esta aplicación móvil (Dados) ha sido diseñada y desarrollada por enjambredev con un enfoque absoluto en la privacidad del usuario. A continuación, se detallan las políticas de privacidad que rigen el uso de la aplicación:
+    </string>
+    <string name="recopilacion">1. Sin Recopilación de Datos de Usuario: La aplicación no recopila ni almacena ningún tipo de datos personales del usuario. No se solicitan nombres, direcciones de correo electrónico, información de contacto u otros detalles personales.
+        </string>
+    <string name="conexion">2. Sin Conexión a Internet: Esta aplicación funciona sin conexión a internet. No se realizan transmisiones de datos a servidores externos ni se intercambia información con terceros en línea.
+        </string>
+    <string name="publicidad">3. Sin Publicidad: La aplicación no contiene publicidad de ningún tipo. No se utilizan anuncios de terceros para monetizar la aplicación, y no se recopilan datos para fines publicitarios.
+        </string>
+    <string name="contacto">Contacto: Si tiene preguntas o inquietudes sobre esta política de privacidad, puede ponerse en contacto con nosotros a través de enjambredev@gmail.com.
+        </string>
+    <string name="aceptacion">Al utilizar esta aplicación, el usuario acepta las condiciones descritas en esta política de privacidad.
+        </string>
+    <string name="actualizacion">Fecha de última actualización: 12 de Diciembre de 2023</string>
+    <string name="could_not_find_app">No se encontró ninguna aplicación que pueda conectarse a la drieccion web</string>
+    <string name="info">info</string>
+    <string name="_0_9">%1$s (0-9)</string>
 </resources>

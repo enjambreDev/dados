@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,12 +37,23 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import dev.enjambre.dados.R
 import dev.enjambre.dados.model.Dado
+import dev.enjambre.dados.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+object DadosDestination : NavigationDestination {
+    override val route: String = "dados"
+    override val titleResource: Int = R.string.app_name
+
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DadosScreen(dadosViewModel: DadosViewModel, vibrator: Vibrator) {
+fun DadosScreen(
+    dadosViewModel: DadosViewModel,
+    vibrator: Vibrator,
+    navigateToInfo: () -> Unit
+    ) {
 
     val d4State = dadosViewModel.d4State.collectAsState()
     val d6State = dadosViewModel.d6State.collectAsState()
@@ -51,39 +63,51 @@ fun DadosScreen(dadosViewModel: DadosViewModel, vibrator: Vibrator) {
     val d20State = dadosViewModel.d20State.collectAsState()
 
     Scaffold(topBar = { DadosAppBar() }) {
-        Column(
-            verticalArrangement = Arrangement.Top,
-            modifier = Modifier
-                .padding(it)
-                .fillMaxSize()
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
+        Box(modifier = Modifier) {
+            Icon(
+                painter = painterResource(id = R.drawable.outline_info_24),
+                contentDescription = stringResource(R.string.info),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1F)
-                    .padding(top = dimensionResource(R.dimen.big_padding))
-            ) {
-                DadoUI(dadosViewModel, d4State, modifier = Modifier.weight(1.0F), vibrator)
-                DadoUI(dadosViewModel, d6State, modifier = Modifier.weight(1.0F), vibrator)
-            }
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
+                    .clickable {
+                        navigateToInfo()
+                    }
+                    .padding(20.dp)
+                    .align(Alignment.BottomStart)
+            )
+            Column(
+                verticalArrangement = Arrangement.Top,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1F)
+                    .padding(it)
+                    .fillMaxSize()
             ) {
-                DadoUI(dadosViewModel, d8State, modifier = Modifier.weight(1.0F), vibrator)
-                DadoUI(dadosViewModel, d10State, modifier = Modifier.weight(1.0F), vibrator)
-            }
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1F)
-            ) {
-                DadoUI(dadosViewModel, d12State, modifier = Modifier.weight(1.0F), vibrator)
-                DadoUI(dadosViewModel, d20State, modifier = Modifier.weight(1.0F), vibrator)
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1F)
+                        .padding(top = dimensionResource(R.dimen.big_padding))
+                ) {
+                    DadoUI(dadosViewModel, d4State, modifier = Modifier.weight(1.0F), vibrator)
+                    DadoUI(dadosViewModel, d6State, modifier = Modifier.weight(1.0F), vibrator)
+                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1F)
+                ) {
+                    DadoUI(dadosViewModel, d8State, modifier = Modifier.weight(1.0F), vibrator)
+                    DadoUI(dadosViewModel, d10State, modifier = Modifier.weight(1.0F), vibrator)
+                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1F)
+                ) {
+                    DadoUI(dadosViewModel, d12State, modifier = Modifier.weight(1.0F), vibrator)
+                    DadoUI(dadosViewModel, d20State, modifier = Modifier.weight(1.0F), vibrator)
+                }
             }
         }
     }
@@ -93,7 +117,8 @@ fun DadosScreen(dadosViewModel: DadosViewModel, vibrator: Vibrator) {
 fun DadosAppBar() {
     Row(
         horizontalArrangement = Arrangement.SpaceAround,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(top = dimensionResource(R.dimen.normal_padding))
     ) {
         Image(
@@ -148,7 +173,7 @@ fun DadoUI(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    Column (horizontalAlignment = Alignment.CenterHorizontally){
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -212,7 +237,8 @@ fun DadoUI(
             Image(
                 painter = painterResource(dadoState.value.drawableRes),
                 contentDescription = stringResource(dadoState.value.contentDescription),
-                modifier = modifier.align(Alignment.Center)
+                modifier = modifier
+                    .align(Alignment.Center)
                     .padding(dimensionResource(R.dimen.normal_padding))
             )
             Text(
@@ -228,6 +254,13 @@ fun DadoUI(
                     .align(Alignment.Center)
             )
         }
-        Text(text = dadoState.value.lados.toString(), textAlign = TextAlign.Center, style = MaterialTheme.typography.labelMedium)
+        Text(
+            text = if (dadoState.value.lados == 10) stringResource(
+                R.string._0_9,
+                dadoState.value.lados.toString()
+            ) else dadoState.value.lados.toString(),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelMedium
+        )
     }
 }
