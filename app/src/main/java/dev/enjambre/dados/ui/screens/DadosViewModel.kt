@@ -1,4 +1,4 @@
-package dev.enjambre.dados.ui
+package dev.enjambre.dados.ui.screens
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf

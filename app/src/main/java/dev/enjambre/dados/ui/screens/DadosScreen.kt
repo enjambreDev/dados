@@ -1,4 +1,4 @@
-package dev.enjambre.dados.ui
+package dev.enjambre.dados.ui.screens
 
 import android.os.VibrationEffect
 import android.os.Vibrator
