@@ -39,7 +39,11 @@ class DadosViewModel: ViewModel() {
             12 -> _d12State
             else -> _d20State
         }
-        dadoState.update { it.copy(currentValue = randomResult(lados)) }
+        var result = randomResult(lados)
+        if (lados == 10) {
+            result--
+        }
+        dadoState.update { it.copy(currentValue = result) }
     }
 
     /*
