@@ -9,7 +9,7 @@
     <string name="informacion">Información</string>
     <string name="privacidad_titulo">Política de privacidad</string>
     <string name="si_te_gusta">No gano nada con esta aplicación. Si te gusta, considera hacer algo desinteresado por alguien hoy.</string>
-    <string name="privacidad_url">enjambre.dev/dados/politicaprivacidad/politicaprivacidad.html</string>
+    <string name="privacidad_url">https://enjambre.dev/dados/politicaprivacidad/politicaprivacidad.html</string>
     <string name="privacidad_cuerpo">
         Esta aplicación móvil (Dados) ha sido diseñada y desarrollada por enjambredev con un enfoque absoluto en la privacidad del usuario. A continuación, se detallan las políticas de privacidad que rigen el uso de la aplicación:
     </string>

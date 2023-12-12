@@ -3,6 +3,7 @@ package dev.enjambre.dados.domain
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import dev.enjambre.dados.R
 
