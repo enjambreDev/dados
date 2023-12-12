@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,8 +28,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -53,7 +58,7 @@ fun DadosScreen(
     dadosViewModel: DadosViewModel,
     vibrator: Vibrator,
     navigateToInfo: () -> Unit
-    ) {
+) {
 
     val d4State = dadosViewModel.d4State.collectAsState()
     val d6State = dadosViewModel.d6State.collectAsState()
@@ -63,7 +68,14 @@ fun DadosScreen(
     val d20State = dadosViewModel.d20State.collectAsState()
 
     Scaffold(topBar = { DadosAppBar() }) {
-        Box(modifier = Modifier) {
+        Box(
+            modifier = Modifier
+                .paint(
+                    painter = painterResource(id = R.drawable.wallpaper),
+                    contentScale = ContentScale.Crop,
+                    alpha = 0.2f
+                )
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.outline_info_24),
                 contentDescription = stringResource(R.string.info),
@@ -121,41 +133,22 @@ fun DadosAppBar() {
             .fillMaxWidth()
             .padding(top = dimensionResource(R.dimen.normal_padding))
     ) {
-        Image(
-            painter = painterResource(R.drawable.d4cel),
-            contentDescription = null,
-            modifier = Modifier.size(35.dp)
-        )
-        Image(
-            painter = painterResource(R.drawable.d6cel),
-            contentDescription = null,
-            modifier = Modifier.size(35.dp)
-        )
-        Image(
-            painter = painterResource(R.drawable.d8cel),
-            contentDescription = null,
-            modifier = Modifier.size(35.dp)
-        )
-        Text(
-            text = stringResource(id = R.string.app_name),
-            modifier = Modifier.padding(start = 16.dp, end = 10.dp),
-            style = MaterialTheme.typography.bodyMedium
-        )
-        Image(
-            painter = painterResource(R.drawable.d10cel),
-            contentDescription = null,
-            modifier = Modifier.size(35.dp)
-        )
-        Image(
-            painter = painterResource(R.drawable.d12cel),
-            contentDescription = null,
-            modifier = Modifier.size(35.dp)
-        )
-        Image(
-            painter = painterResource(R.drawable.d20cel),
-            contentDescription = null,
-            modifier = Modifier.size(35.dp)
-        )
+        val diceDrawableList = listOf<Int>(R.drawable.d4cel, R.drawable.d6cel, R.drawable.d8cel, R.drawable.d10cel, R.drawable.d12cel, R.drawable.d20cel)
+        for ( dice in diceDrawableList) {
+            Image(
+                painter = painterResource(dice),
+                contentDescription = null,
+                modifier = Modifier.size(35.dp),
+                colorFilter = if (isSystemInDarkTheme()) ColorFilter.tint(Color(125, 125, 100)) else ColorFilter.tint(Color.Black)
+            )
+            if (dice == R.drawable.d8cel) {
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    modifier = Modifier.padding(start = 16.dp, end = 10.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
     }
 }
 
@@ -239,7 +232,8 @@ fun DadoUI(
                 contentDescription = stringResource(dadoState.value.contentDescription),
                 modifier = modifier
                     .align(Alignment.Center)
-                    .padding(dimensionResource(R.dimen.normal_padding))
+                    .padding(dimensionResource(R.dimen.normal_padding)),
+                colorFilter = if (isSystemInDarkTheme()) ColorFilter.tint(Color(125, 125, 100)) else ColorFilter.tint(Color.Black)
             )
             Text(
                 text = dadoState.value.currentValue.toString(),
